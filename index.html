@@ -1,0 +1,853 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Name Style Generator - 100+ Fancy Text Styles</title>
+  <style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; font-family: 'Outfit', sans-serif; overflow: hidden; }
+
+:root {
+  --bg-primary: #0a0a1a;
+  --bg-secondary: #12122a;
+  --surface: rgba(255,255,255,0.06);
+  --surface-hover: rgba(255,255,255,0.1);
+  --text-primary: #f0f0ff;
+  --text-secondary: #8888aa;
+  --accent-1: #a855f7;
+  --accent-2: #ec4899;
+  --accent-3: #6366f1;
+  --glow-1: rgba(168,85,247,0.3);
+  --glow-2: rgba(236,72,153,0.3);
+}
+
+.light-mode {
+  --bg-primary: #f5f0ff;
+  --bg-secondary: #ede5ff;
+  --surface: rgba(120,60,200,0.07);
+  --surface-hover: rgba(120,60,200,0.12);
+  --text-primary: #1a1035;
+  --text-secondary: #6b5f80;
+  --accent-1: #9333ea;
+  --accent-2: #db2777;
+  --accent-3: #4f46e5;
+  --glow-1: rgba(147,51,234,0.15);
+  --glow-2: rgba(219,39,119,0.15);
+}
+
+body {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  transition: background 0.4s, color 0.4s;
+}
+
+.app-wrapper {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+}
+
+.bg-orb {
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.5;
+  pointer-events: none;
+  z-index: 0;
+  animation: orbFloat 8s ease-in-out infinite;
+}
+.bg-orb-1 { width: 300px; height: 300px; background: var(--accent-1); top: -100px; left: -80px; }
+.bg-orb-2 { width: 250px; height: 250px; background: var(--accent-2); bottom: -80px; right: -60px; animation-delay: -4s; }
+.bg-orb-3 { width: 200px; height: 200px; background: var(--accent-3); top: 40%; left: 60%; animation-delay: -2s; }
+
+@keyframes orbFloat {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(20px, -15px) scale(1.05); }
+  66% { transform: translate(-15px, 10px) scale(0.95); }
+}
+
+.app-header {
+  position: relative;
+  z-index: 10;
+  padding: 16px 20px 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.app-logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 24px;
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.theme-btn {
+  width: 40px; height: 40px;
+  border-radius: 12px;
+  background: var(--surface);
+  border: 1px solid rgba(255,255,255,0.08);
+  color: var(--text-primary);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s;
+  backdrop-filter: blur(10px);
+}
+.theme-btn:hover { background: var(--surface-hover); transform: scale(1.05); }
+
+.input-section {
+  position: relative;
+  z-index: 10;
+  padding: 0 20px 12px;
+}
+
+.input-container {
+  position: relative;
+  border-radius: 18px;
+  background: var(--surface);
+  border: 1px solid rgba(255,255,255,0.1);
+  backdrop-filter: blur(20px);
+  overflow: hidden;
+  transition: all 0.3s;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.1);
+}
+.input-container:focus-within {
+  border-color: var(--accent-1);
+  box-shadow: 0 0 0 3px var(--glow-1), 0 4px 24px rgba(0,0,0,0.15);
+}
+
+.name-input {
+  width: 100%;
+  padding: 18px 56px 18px 20px;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-family: 'Outfit', sans-serif;
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+.name-input::placeholder { color: var(--text-secondary); opacity: 0.7; }
+
+.generate-btn {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 42px; height: 42px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+  border: none;
+  color: white;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s;
+  box-shadow: 0 4px 16px var(--glow-2);
+}
+.generate-btn:hover { transform: translateY(-50%) scale(1.08); }
+.generate-btn:active { transform: translateY(-50%) scale(0.95); }
+
+.cat-section {
+  position: relative;
+  z-index: 10;
+  padding: 0 0 10px;
+}
+.cat-scroll {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding: 0 20px;
+  scrollbar-width: none;
+}
+.cat-scroll::-webkit-scrollbar { display: none; }
+
+.cat-pill {
+  flex-shrink: 0;
+  padding: 8px 16px;
+  border-radius: 100px;
+  font-size: 13px;
+  font-weight: 500;
+  background: var(--surface);
+  border: 1px solid rgba(255,255,255,0.06);
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.3s;
+  white-space: nowrap;
+  backdrop-filter: blur(10px);
+}
+.cat-pill:hover { background: var(--surface-hover); color: var(--text-primary); }
+.cat-pill.active {
+  background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+  color: white;
+  border-color: transparent;
+  box-shadow: 0 2px 12px var(--glow-1);
+}
+
+.cards-area {
+  position: relative;
+  z-index: 10;
+  flex: 1;
+  overflow-y: auto;
+  padding: 4px 20px 100px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(168,85,247,0.3) transparent;
+}
+.cards-area::-webkit-scrollbar { width: 4px; }
+.cards-area::-webkit-scrollbar-thumb { background: rgba(168,85,247,0.3); border-radius: 4px; }
+
+.cards-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+@media(min-width:640px) { .cards-grid { grid-template-columns: 1fr 1fr; } }
+@media(min-width:1024px) { .cards-grid { grid-template-columns: 1fr 1fr 1fr; } }
+
+.style-card {
+  position: relative;
+  border-radius: 16px;
+  background: var(--surface);
+  border: 1px solid rgba(255,255,255,0.06);
+  backdrop-filter: blur(16px);
+  padding: 16px;
+  cursor: pointer;
+  transition: all 0.3s;
+  animation: cardIn 0.4s ease-out both;
+  overflow: hidden;
+}
+.style-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 16px;
+  opacity: 0;
+  background: linear-gradient(135deg, var(--glow-1), var(--glow-2));
+  transition: opacity 0.3s;
+}
+.style-card:hover { transform: translateY(-2px); border-color: rgba(168,85,247,0.2); }
+.style-card:hover::before { opacity: 1; }
+
+.card-label {
+  position: relative;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  color: var(--accent-1);
+  margin-bottom: 8px;
+}
+.card-text {
+  position: relative;
+  font-size: 17px;
+  line-height: 1.5;
+  word-break: break-all;
+  color: var(--text-primary);
+  min-height: 28px;
+}
+.card-actions {
+  position: relative;
+  display: flex;
+  gap: 6px;
+  margin-top: 12px;
+  justify-content: flex-end;
+}
+.card-action-btn {
+  width: 32px; height: 32px;
+  border-radius: 10px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.06);
+  color: var(--text-secondary);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.card-action-btn:hover { background: var(--accent-1); color: white; transform: scale(1.1); }
+.card-action-btn.fav-active { color: var(--accent-2); }
+.card-action-btn.fav-active:hover { background: var(--accent-2); color: white; }
+
+@keyframes cardIn {
+  from { opacity: 0; transform: translateY(16px) scale(0.96); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.toast {
+  position: fixed;
+  bottom: 100px;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  padding: 12px 28px;
+  border-radius: 100px;
+  background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+  color: white;
+  font-weight: 600;
+  font-size: 14px;
+  z-index: 999;
+  pointer-events: none;
+  opacity: 0;
+  transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  box-shadow: 0 8px 32px var(--glow-2);
+}
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 10px 20px 14px;
+  background: var(--bg-secondary);
+  border-top: 1px solid rgba(255,255,255,0.06);
+  backdrop-filter: blur(20px);
+}
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  color: var(--text-secondary);
+  transition: all 0.3s;
+  background: none;
+  border: none;
+  font-family: 'Outfit', sans-serif;
+  padding: 4px 12px;
+}
+.nav-item.active { color: var(--accent-1); }
+.nav-item:hover { color: var(--accent-1); }
+.nav-label { font-size: 11px; font-weight: 500; }
+
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  text-align: center;
+}
+.empty-emoji { font-size: 56px; margin-bottom: 16px; }
+.empty-title { font-size: 18px; font-weight: 600; color: var(--text-primary); margin-bottom: 6px; }
+.empty-sub { font-size: 14px; color: var(--text-secondary); }
+
+.settings-panel {
+  position: relative;
+  z-index: 10;
+  flex: 1;
+  overflow-y: auto;
+  padding: 4px 20px 100px;
+}
+.settings-group {
+  margin-bottom: 20px;
+}
+.settings-label {
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--text-secondary);
+  margin-bottom: 10px;
+}
+.settings-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px;
+  border-radius: 14px;
+  background: var(--surface);
+  border: 1px solid rgba(255,255,255,0.06);
+  margin-bottom: 8px;
+  backdrop-filter: blur(10px);
+}
+.settings-item-label { font-size: 15px; font-weight: 500; }
+.toggle {
+  width: 48px; height: 26px;
+  border-radius: 13px;
+  background: rgba(255,255,255,0.15);
+  position: relative;
+  cursor: pointer;
+  transition: all 0.3s;
+  border: none;
+}
+.toggle.on { background: linear-gradient(135deg, var(--accent-1), var(--accent-2)); }
+.toggle-knob {
+  width: 20px; height: 20px;
+  border-radius: 10px;
+  background: white;
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  transition: all 0.3s;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+.toggle.on .toggle-knob { left: 25px; }
+
+.font-size-control {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.fs-btn {
+  width: 32px; height: 32px;
+  border-radius: 8px;
+  background: var(--surface-hover);
+  border: 1px solid rgba(255,255,255,0.08);
+  color: var(--text-primary);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  font-size: 16px; font-weight: 700;
+  transition: all 0.2s;
+}
+.fs-btn:hover { background: var(--accent-1); color: white; }
+.fs-value { font-size: 15px; font-weight: 600; min-width: 32px; text-align: center; }
+
+.page { display: none; flex-direction: column; flex: 1; overflow: hidden; }
+.page.active { display: flex; }
+
+.fav-count {
+  position: absolute;
+  top: -4px; right: -4px;
+  min-width: 16px; height: 16px;
+  border-radius: 8px;
+  background: var(--accent-2);
+  color: white;
+  font-size: 10px;
+  font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+  padding: 0 4px;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@700&display=swap');
+  </style>
+  <style>body { box-sizing: border-box; }</style>
+  <script src="https://cdn.tailwindcss.com/3.4.17" type="text/javascript"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js" type="text/javascript"></script>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+  <script src="/_sdk/element_sdk.js" type="text/javascript"></script>
+ </head>
+ <body>
+  <div class="app-wrapper" id="appWrapper">
+   <div class="bg-orb bg-orb-1"></div>
+   <div class="bg-orb bg-orb-2"></div>
+   <div class="bg-orb bg-orb-3"></div>
+   <header class="app-header">
+    <div class="app-logo" id="appTitle">
+     Name Style Generator
+    </div><button class="theme-btn" id="themeToggle" aria-label="Toggle theme">
+     <svg width="20" height="20" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+     </svg></button>
+   </header>
+   <div class="page active" id="homePage">
+    <section class="input-section">
+     <div class="input-container"><label for="nameInput" class="sr-only">Enter your name</label> <input type="text" id="nameInput" class="name-input" placeholder="Type your name... ✨" maxlength="30" autocomplete="off"> <button class="generate-btn" id="generateBtn" aria-label="Generate styles">
+       <svg width="20" height="20" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M15 11.5l-8.1-8.1a1 1 0 0 0-1.4 1.4l4.2 4.2M18 21H3c-1.1 0-2-.9-2-2V3c0-1.1.9-2 2-2h15c1.1 0 2 .9 2 2v16c0 1.1-.9 2-2 2z"></path>
+       </svg></button>
+     </div>
+    </section>
+    <nav class="cat-section" aria-label="Style categories">
+     <div class="cat-scroll" id="catScroll"></div>
+    </nav>
+    <div class="cards-area" id="cardsArea">
+     <div class="empty-state" id="emptyHome">
+      <div class="empty-emoji">
+       ✨
+      </div>
+      <div class="empty-title">
+       Create Fancy Names!
+      </div>
+      <div class="empty-sub">
+       Type a name above and tap the sparkle button
+      </div>
+     </div>
+     <div class="cards-grid" id="cardsGrid"></div>
+    </div>
+   </div>
+   <div class="page" id="favsPage">
+    <div class="cards-area" id="favsArea">
+     <div class="empty-state" id="emptyFavs">
+      <div class="empty-emoji">
+       💜
+      </div>
+      <div class="empty-title">
+       No Favorites Yet
+      </div>
+      <div class="empty-sub">
+       Tap the heart on any style to save it here
+      </div>
+     </div>
+     <div class="cards-grid" id="favsGrid"></div>
+    </div>
+   </div>
+   <div class="page" id="settingsPage">
+    <div class="settings-panel">
+     <div class="settings-group">
+      <div class="settings-label">
+       Appearance
+      </div>
+      <div class="settings-item"><span class="settings-item-label">Dark Mode</span> <button class="toggle on" id="darkModeToggle" aria-label="Toggle dark mode">
+        <div class="toggle-knob"></div></button>
+      </div>
+      <div class="settings-item"><span class="settings-item-label">Card Font Size</span>
+       <div class="font-size-control"><button class="fs-btn" id="fsMinus" aria-label="Decrease font size">−</button> <span class="fs-value" id="fsValue">17</span> <button class="fs-btn" id="fsPlus" aria-label="Increase font size">+</button>
+       </div>
+      </div>
+     </div>
+     <div class="settings-group">
+      <div class="settings-label">
+       About
+      </div>
+      <div class="settings-item"><span class="settings-item-label">Version</span> <span style="color:var(--text-secondary);font-size:14px;">1.0.0</span>
+      </div>
+      <div class="settings-item"><span class="settings-item-label">Made with 💜</span> <span style="color:var(--text-secondary);font-size:14px;">FancyText King</span>
+      </div>
+     </div>
+    </div>
+   </div>
+   <div class="toast" id="toast">
+    Copied! ✨
+   </div>
+   <nav class="bottom-nav" aria-label="Main navigation"><button class="nav-item active" data-page="home" aria-label="Home">
+     <svg width="22" height="22" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline>
+     </svg><span class="nav-label">Home</span></button> <button class="nav-item" data-page="favs" aria-label="Favorites" style="position:relative;">
+     <svg width="22" height="22" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+     </svg><span class="nav-label">Favorites</span><span class="fav-count" id="favBadge" style="display:none;">0</span></button> <button class="nav-item" data-page="settings" aria-label="Settings">
+     <svg width="22" height="22" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <circle cx="12" cy="12" r="3"></circle><path d="M12 1v6m0 6v6M4.22 4.22l4.24 4.24m2.98 2.98l4.24 4.24M1 12h6m6 0h6m-1.78 7.78l-4.24-4.24m-2.98-2.98l-4.24-4.24"></path>
+     </svg><span class="nav-label">Settings</span></button>
+   </nav>
+  </div>
+  <script>
+const CATEGORIES = [
+  { id: 'all', label: '✨ All' },
+  { id: 'gaming', label: '🎮 Gaming' },
+  { id: 'emoji', label: '😍 Emoji' },
+  { id: 'luxury', label: '👑 Luxury' },
+  { id: 'glitch', label: '⚡ Glitch' },
+  { id: 'cute', label: '🌸 Cute' },
+  { id: 'gothic', label: '🖤 Gothic' },
+  { id: 'retro', label: '📼 Retro' },
+  { id: 'neon', label: '💡 Neon' },
+  { id: 'minimal', label: '◻️ Minimal' },
+];
+
+const BOLD = Object.fromEntries([...'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'].map((c,i) => [c, String.fromCodePoint(i<26?0x1D400+i:0x1D41A+(i-26))]));
+const ITALIC = Object.fromEntries([...'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'].map((c,i) => [c, String.fromCodePoint(i<26?0x1D434+i:0x1D44E+(i-26))]));
+const BOLD_ITALIC = Object.fromEntries([...'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'].map((c,i) => [c, String.fromCodePoint(i<26?0x1D468+i:0x1D482+(i-26))]));
+const SCRIPT = Object.fromEntries([...'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'].map((c,i) => [c, String.fromCodePoint(i<26?0x1D49C+i:0x1D4B6+(i-26))]));
+const SCRIPT_BOLD = Object.fromEntries([...'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'].map((c,i) => [c, String.fromCodePoint(i<26?0x1D4D0+i:0x1D4EA+(i-26))]));
+const FRAKTUR = Object.fromEntries([...'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'].map((c,i) => [c, String.fromCodePoint(i<26?0x1D504+i:0x1D51E+(i-26))]));
+const FRAKTUR_BOLD = Object.fromEntries([...'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'].map((c,i) => [c, String.fromCodePoint(i<26?0x1D56C+i:0x1D586+(i-26))]));
+const DOUBLE_STRUCK = Object.fromEntries([...'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'].map((c,i) => [c, String.fromCodePoint(i<26?0x1D538+i:0x1D552+(i-26))]));
+const MONO = Object.fromEntries([...'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'].map((c,i) => [c, String.fromCodePoint(i<26?0x1D670+i:i<52?0x1D68A+(i-26):0x1D7F6+(i-52))]));
+const SANS = Object.fromEntries([...'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'].map((c,i) => [c, String.fromCodePoint(i<26?0x1D5A0+i:0x1D5BA+(i-26))]));
+const SANS_BOLD = Object.fromEntries([...'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'].map((c,i) => [c, String.fromCodePoint(i<26?0x1D5D4+i:0x1D5EE+(i-26))]));
+const SANS_ITALIC = Object.fromEntries([...'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'].map((c,i) => [c, String.fromCodePoint(i<26?0x1D608+i:0x1D622+(i-26))]));
+const CIRCLED = Object.fromEntries([...'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'].map((c,i) => [c, String.fromCodePoint(i<26?0x24B6+i:0x24D0+(i-26))]));
+const SQUARED = Object.fromEntries([...'ABCDEFGHIJKLMNOPQRSTUVWXYZ'].map((c,i) => [c, String.fromCodePoint(0x1F130+i)]));
+const NEG_SQUARED = Object.fromEntries([...'ABCDEFGHIJKLMNOPQRSTUVWXYZ'].map((c,i) => [c, String.fromCodePoint(0x1F170+i)]));
+const PAREN = Object.fromEntries([...'abcdefghijklmnopqrstuvwxyz'].map((c,i) => [c, String.fromCodePoint(0x249C+i)]));
+const SMALL_CAPS_MAP = {'a':'ᴀ','b':'ʙ','c':'ᴄ','d':'ᴅ','e':'ᴇ','f':'ғ','g':'ɢ','h':'ʜ','i':'ɪ','j':'ᴊ','k':'ᴋ','l':'ʟ','m':'ᴍ','n':'ɴ','o':'ᴏ','p':'ᴘ','q':'ǫ','r':'ʀ','s':'s','t':'ᴛ','u':'ᴜ','v':'ᴠ','w':'ᴡ','x':'x','y':'ʏ','z':'ᴢ'};
+const UPSIDE_MAP = {'a':'ɐ','b':'q','c':'ɔ','d':'p','e':'ǝ','f':'ɟ','g':'ƃ','h':'ɥ','i':'ᴉ','j':'ɾ','k':'ʞ','l':'l','m':'ɯ','n':'u','o':'o','p':'d','q':'b','r':'ɹ','s':'s','t':'ʇ','u':'n','v':'ʌ','w':'ʍ','x':'x','y':'ʎ','z':'z','A':'∀','B':'q','C':'Ɔ','D':'p','E':'Ǝ','F':'Ⅎ','G':'פ','H':'H','I':'I','J':'ſ','K':'ʞ','L':'˥','M':'W','N':'N','O':'O','P':'Ԁ','Q':'Q','R':'ɹ','S':'S','T':'┴','U':'∩','V':'Λ','W':'M','X':'X','Y':'⅄','Z':'Z'};
+
+function mapText(text, map) { return [...text].map(c => map[c] || c).join(''); }
+function spaced(text) { return [...text].join(' '); }
+
+function zalgo(text, intensity) {
+  const zalgoUp = ['\u030d','\u030e','\u0304','\u0305','\u033f','\u0311','\u0306','\u0310','\u0352','\u0357','\u0351','\u0307','\u0308','\u030a','\u0342','\u0343','\u0344','\u034a','\u034b','\u034c'];
+  const zalgoMid = ['\u0315','\u031b','\u0340','\u0341','\u0358','\u0321','\u0322','\u0327','\u0328','\u0334','\u0335','\u0336','\u034f','\u035c','\u035d','\u035e','\u035f','\u0360','\u0362'];
+  const zalgoDown = ['\u0316','\u0317','\u0318','\u0319','\u031c','\u031d','\u031e','\u031f','\u0320','\u0324','\u0325','\u0326','\u0329','\u032a','\u032b','\u032c','\u032d','\u032e','\u032f','\u0330','\u0331','\u0332','\u0333','\u0339','\u033a','\u033b','\u033c','\u0345'];
+  const pick = arr => arr[Math.floor(Math.random()*arr.length)];
+  return [...text].map(c => { let r = c; for(let i=0;i<intensity;i++) { r += pick(zalgoUp); r += pick(zalgoMid); r += pick(zalgoDown); } return r; }).join('');
+}
+
+const STYLES = [
+  { name: 'Bold Serif', cat: 'minimal', fn: t => `𝐓𝐞𝐱𝐭 ${mapText(t, BOLD)}` },
+  { name: 'Italic Serif', cat: 'minimal', fn: t => `✦ ${mapText(t, ITALIC)} ✦` },
+  { name: 'Bold Italic', cat: 'luxury', fn: t => `👑 ${mapText(t, BOLD_ITALIC)} 👑` },
+  { name: 'Script', cat: 'cute', fn: t => `💫 ${mapText(t, SCRIPT)} 💫` },
+  { name: 'Bold Script', cat: 'luxury', fn: t => `✨ ${mapText(t, SCRIPT_BOLD)} ✨` },
+  { name: 'Gothic Fraktur', cat: 'gothic', fn: t => `🖤 ${mapText(t, FRAKTUR)} 🖤` },
+  { name: 'Bold Gothic', cat: 'gothic', fn: t => `⚔️ ${mapText(t, FRAKTUR_BOLD)} ⚔️` },
+  { name: 'Double Struck', cat: 'retro', fn: t => `『${mapText(t, DOUBLE_STRUCK)}』` },
+  { name: 'Monospace', cat: 'retro', fn: t => `> ${mapText(t, MONO)} _` },
+  { name: 'Sans Bold', cat: 'minimal', fn: t => `◈ ${mapText(t, SANS_BOLD)} ◈` },
+  { name: 'Circled Letters', cat: 'cute', fn: t => `🌸 ${mapText(t, CIRCLED)} 🌸` },
+  { name: 'Squared', cat: 'gaming', fn: t => `🎮 ${mapText(t.toUpperCase(), SQUARED)} 🎮` },
+  { name: 'Negative Squared', cat: 'gaming', fn: t => `🏆 ${mapText(t.toUpperCase(), NEG_SQUARED)} 🏆` },
+  { name: 'Parenthesized', cat: 'cute', fn: t => `🎀 ${mapText(t.toLowerCase(), PAREN)} 🎀` },
+  { name: 'Small Caps', cat: 'luxury', fn: t => `♛ ${mapText(t.toLowerCase(), SMALL_CAPS_MAP)} ♛` },
+  { name: 'Upside Down', cat: 'glitch', fn: t => `🙃 ${[...mapText(t, UPSIDE_MAP)].reverse().join('')} 🙃` },
+  { name: 'Spaced Out', cat: 'neon', fn: t => `⟐ ${spaced(t.toUpperCase())} ⟐` },
+  { name: 'Bold Spaced', cat: 'neon', fn: t => `💎 ${spaced(mapText(t, BOLD))} 💎` },
+  { name: 'Zalgo Light', cat: 'glitch', fn: t => `${zalgo(t, 1)}` },
+  { name: 'Zalgo Intense', cat: 'glitch', fn: t => `☠ ${zalgo(t, 3)} ☠` },
+  { name: 'Star Border', cat: 'emoji', fn: t => `★彡[${t}]彡★` },
+  { name: 'Dragon Style', cat: 'gaming', fn: t => `🐉 ${spaced(t.toUpperCase())} 🐉` },
+  { name: 'Sparkle Box', cat: 'emoji', fn: t => `┊ ✧ ${t} ✧ ┊` },
+  { name: 'Royal Crown', cat: 'luxury', fn: t => `♚═══ ${mapText(t, BOLD_ITALIC)} ═══♚` },
+  { name: 'Neon Glow', cat: 'neon', fn: t => `【☆】${mapText(t, SANS_BOLD)}【☆】` },
+  { name: 'Cyber Punk', cat: 'neon', fn: t => `⌜${mapText(t, MONO)}⌝ //sys` },
+  { name: 'Cute Hearts', cat: 'cute', fn: t => `💕 ${[...t].join('♡')} 💕` },
+  { name: 'Flower Garden', cat: 'cute', fn: t => `🌺•${mapText(t, SCRIPT)}•🌺` },
+  { name: 'Fire Gaming', cat: 'gaming', fn: t => `🔥 ${mapText(t.toUpperCase(), SANS_BOLD)} 🔥` },
+  { name: 'Ice Crystal', cat: 'gaming', fn: t => `❄️ ${mapText(t, ITALIC)} ❄️` },
+  { name: 'Lightning', cat: 'gaming', fn: t => `⚡${t.toUpperCase()}⚡` },
+  { name: 'Galaxy Vibes', cat: 'emoji', fn: t => `🌌✧ ${mapText(t, SANS_ITALIC)} ✧🌌` },
+  { name: 'Music Notes', cat: 'emoji', fn: t => `♫ ${[...t].join('♪')} ♫` },
+  { name: 'Diamond Lux', cat: 'luxury', fn: t => `💎 ${mapText(t, DOUBLE_STRUCK)} 💎` },
+  { name: 'Rose Gold', cat: 'luxury', fn: t => `🌹 ${mapText(t, SCRIPT_BOLD)} 🌹` },
+  { name: 'Retro Wave', cat: 'retro', fn: t => `▓▒░ ${t.toUpperCase()} ░▒▓` },
+  { name: 'VHS Tape', cat: 'retro', fn: t => `📼 ▶ ${mapText(t, MONO)} ◀ 📼` },
+  { name: 'Pixel Art', cat: 'retro', fn: t => `◻◼ ${spaced(t.toUpperCase())} ◼◻` },
+  { name: 'Dark Soul', cat: 'gothic', fn: t => `☽ ${mapText(t, FRAKTUR)} ☾` },
+  { name: 'Occult', cat: 'gothic', fn: t => `᛭ ${mapText(t, FRAKTUR_BOLD)} ᛭` },
+  { name: 'Glitch Wave', cat: 'glitch', fn: t => `█▓▒ ${zalgo(t,1)} ▒▓█` },
+  { name: 'Matrix Code', cat: 'glitch', fn: t => `01 ${mapText(t, MONO)} 10` },
+  { name: 'Rainbow Stars', cat: 'emoji', fn: t => `🌈⭐ ${mapText(t, BOLD)} ⭐🌈` },
+  { name: 'Kawaii', cat: 'cute', fn: t => `(◕ᴗ◕✿) ${mapText(t, SCRIPT)} (✿◕ᴗ◕)` },
+  { name: 'Butterfly', cat: 'cute', fn: t => `🦋 ${[...t].join('·')} 🦋` },
+  { name: 'Wave Underline', cat: 'emoji', fn: t => `${t}` + '\u0330'.repeat(t.length) },
+  { name: 'Skeleton', cat: 'gothic', fn: t => `💀 ${t} 💀` },
+  { name: 'Tombstone', cat: 'gothic', fn: t => `⚰️ ${mapText(t, FRAKTUR)} ⚰️` },
+  { name: 'Angel Halo', cat: 'emoji', fn: t => `😇 ✨${t}✨ 😇` },
+  { name: 'Thunder Storm', cat: 'gaming', fn: t => `⛈️ ${t.toUpperCase()} ⛈️` },
+  { name: 'Poison Drip', cat: 'glitch', fn: t => `☠️${zalgo(t, 2)}☠️` },
+  { name: 'Silver Fox', cat: 'luxury', fn: t => `🦊✨ ${mapText(t, SANS_BOLD)} ✨🦊` },
+  { name: 'Mystic Portal', cat: 'magical', fn: t => `🌀 ${mapText(t, SCRIPT_BOLD)} 🌀` },
+  { name: 'Celestial', cat: 'emoji', fn: t => `⭐${t}⭐` },
+  { name: 'Ancient Rune', cat: 'gothic', fn: t => `ᚱ ${mapText(t, FRAKTUR)} ᚱ` },
+  { name: 'Cosmic Ray', cat: 'emoji', fn: t => `🌠 ${mapText(t, SANS_BOLD)} 🌠` },
+  { name: 'Phantom', cat: 'glitch', fn: t => `👻 ${zalgo(t, 1)} 👻` },
+  { name: 'Blessed', cat: 'emoji', fn: t => `✝️ ${mapText(t, BOLD)} ✝️` },
+  { name: 'Cursed', cat: 'gothic', fn: t => `🔗 ${mapText(t, FRAKTUR)} 🔗` },
+  { name: 'Mystical Aura', cat: 'magical', fn: t => `✨${t}✨` },
+  { name: 'Void Echo', cat: 'glitch', fn: t => `𝐕𝐨𝐢𝐝 ${zalgo(t, 1)} 𝐕𝐨𝐢𝐝` },
+  { name: 'Neon Flash', cat: 'neon', fn: t => `⚡ ${mapText(t, SANS_BOLD)} ⚡` },
+  { name: 'Gold Trim', cat: 'luxury', fn: t => `『 ${mapText(t, BOLD)} 』` },
+  { name: 'Silver Trim', cat: 'luxury', fn: t => `【 ${mapText(t, SANS_BOLD)} 】` },
+  { name: 'Bracket Bold', cat: 'minimal', fn: t => `｟ ${mapText(t, BOLD)} ｠` },
+  { name: 'Angle Stack', cat: 'minimal', fn: t => `≪ ${mapText(t, SANS_BOLD)} ≫` },
+  { name: 'Double Dagger', cat: 'gothic', fn: t => `‡ ${mapText(t, FRAKTUR)} ‡` },
+  { name: 'Section Mark', cat: 'minimal', fn: t => `§ ${mapText(t, BOLD)} §` },
+  { name: 'Pilcrow', cat: 'minimal', fn: t => `¶ ${mapText(t, SANS_BOLD)} ¶` },
+  { name: 'Ornament Vine', cat: 'cute', fn: t => `❀ ${mapText(t, SCRIPT)} ❀` },
+  { name: 'Ornament Star', cat: 'cute', fn: t => `❋ ${mapText(t, SCRIPT)} ❋` },
+  { name: 'Ornament Cross', cat: 'gothic', fn: t => `✦ ${mapText(t, FRAKTUR)} ✦` },
+  { name: 'Sparkle Dot', cat: 'emoji', fn: t => `·${[...t].join('·')}·` },
+  { name: 'Fancy Dot', cat: 'emoji', fn: t => `˙${[...t].join('˙')}˙` },
+  { name: 'Heavy Dot', cat: 'emoji', fn: t => `• ${[...t].join(' • ')} •` },
+  { name: 'Double Dash', cat: 'minimal', fn: t => `– ${t} –` },
+  { name: 'Triple Dash', cat: 'minimal', fn: t => `— ${t} —` },
+  { name: 'Chevron Double', cat: 'minimal', fn: t => `« ${t} »` },
+  { name: 'Chevron Single', cat: 'minimal', fn: t => `‹ ${t} ›` },
+  { name: 'Angle Double', cat: 'minimal', fn: t => `⟨ ${t} ⟩` },
+  { name: 'Lenticular Box', cat: 'retro', fn: t => `㈀ ${t} ㈈` },
+  { name: 'Ideographic Space', cat: 'emoji', fn: t => `${[...t].join('　')}` },
+  { name: 'Wide Space', cat: 'neon', fn: t => `${[...t].join('  ')}` },
+  { name: 'Super Script', cat: 'minimal', fn: t => `ˢᵘᵖᵉʳ ${t} ˢᶜʳⁱᵖᵗ` },
+  { name: 'Sub Script', cat: 'minimal', fn: t => `ₛᵤᵦ ${t} ₛcᵣᵢₚₜ` },
+  { name: 'Combining Ring', cat: 'emoji', fn: t => `${[...t].map(c => c + '\u030a').join('')}` },
+  { name: 'Combining Tilde', cat: 'emoji', fn: t => `${[...t].map(c => c + '\u0303').join('')}` },
+  { name: 'Combining Macron', cat: 'minimal', fn: t => `${[...t].map(c => c + '\u0304').join('')}` },
+  { name: 'Combining Caron', cat: 'minimal', fn: t => `${[...t].map(c => c + '\u030c').join('')}` },
+  { name: 'Combining Cedilla', cat: 'minimal', fn: t => `${[...t].map(c => c + '\u0327').join('')}` },
+  { name: 'Medieval Fleuron', cat: 'gothic', fn: t => `✦ ❖ ${mapText(t, FRAKTUR)} ❖ ✦` },
+  { name: 'Victorian', cat: 'gothic', fn: t => `❦ ${mapText(t, FRAKTUR_BOLD)} ❦` },
+  { name: 'Baroque', cat: 'luxury', fn: t => `🎭 ${mapText(t, SCRIPT_BOLD)} 🎭` },
+  { name: 'Renaissance', cat: 'luxury', fn: t => `🖼️ ${mapText(t, FRAKTUR)} 🖼️` },
+  { name: 'Modern Art', cat: 'minimal', fn: t => `🎨 ${mapText(t, SANS_BOLD)} 🎨` },
+  { name: 'Abstract', cat: 'glitch', fn: t => `🌀 ${zalgo(t, 1)} 🌀` },
+  { name: 'Surreal', cat: 'glitch', fn: t => `🪞 ${mapText(t.split('').reverse().join(''), BOLD)} 🪞` },
+  { name: 'Minimalist Line', cat: 'minimal', fn: t => `━ ${t} ━` },
+  { name: 'Bold Line', cat: 'minimal', fn: t => `█ ${t} █` },
+  { name: 'Dashed Border', cat: 'minimal', fn: t => `┈ ${t} ┈` },
+  { name: 'Dotted Border', cat: 'minimal', fn: t => `┊ ${t} ┊` },
+  { name: 'Double Border', cat: 'minimal', fn: t => `║ ${t} ║` },
+  { name: 'Triple Border', cat: 'minimal', fn: t => `║║ ${t} ║║` },
+  { name: 'Wavy Border', cat: 'cute', fn: t => `≈ ${t} ≈` },
+  { name: 'Twisted Border', cat: 'glitch', fn: t => `❮ ${zalgo(t, 1)} ❯` },
+  { name: 'Cloud Border', cat: 'cute', fn: t => `☁️ ${t} ☁️` },
+  { name: 'Snow Border', cat: 'gaming', fn: t => `❄️ ${t} ❄️` },
+  { name: 'Fire Border', cat: 'gaming', fn: t => `🔥 ${t} 🔥` },
+  { name: 'Water Border', cat: 'gaming', fn: t => `💧 ${t} 💧` },
+];
+
+let currentName = '';
+let activeCat = 'all';
+let generatedStyles = [];
+let favorites = [];
+let isDark = true;
+let cardFontSize = 17;
+let currentPage = 'home';
+
+function renderCategories() {
+  const el = document.getElementById('catScroll');
+  el.innerHTML = '';
+  CATEGORIES.forEach(cat => {
+    const pill = document.createElement('button');
+    pill.className = `cat-pill${cat.id === activeCat ? ' active' : ''}`;
+    pill.textContent = cat.label;
+    pill.addEventListener('click', () => { activeCat = cat.id; renderCategories(); renderStyles(); });
+    el.appendChild(pill);
+  });
+}
+
+function generateStyles(name) {
+  if (!name.trim()) return [];
+  return STYLES.map((s, i) => ({ id: i, name: s.name, category: s.cat, styled: s.fn(name.trim()) }));
+}
+
+function renderStyles() {
+  const grid = document.getElementById('cardsGrid');
+  const empty = document.getElementById('emptyHome');
+
+  if (!generatedStyles.length) { grid.innerHTML = ''; empty.style.display = 'flex'; return; }
+  empty.style.display = 'none';
+
+  const filtered = activeCat === 'all' ? generatedStyles : generatedStyles.filter(s => s.category === activeCat);
+  const existing = new Map([...grid.children].map(el => [el.dataset.styleId, el]));
+  const newIds = new Set(filtered.map(s => String(s.id)));
+
+  existing.forEach((el, id) => { if (!newIds.has(id)) el.remove(); });
+
+  filtered.forEach((style, idx) => {
+    const sid = String(style.id);
+    if (existing.has(sid)) {
+      const card = existing.get(sid);
+      card.querySelector('.card-text').textContent = style.styled;
+      card.dataset.styledText = style.styled;
+      const isFav = favorites.some(f => f === style.styled);
+      const hb = card.querySelector('.fav-btn');
+      if (hb) hb.classList.toggle('fav-active', isFav);
+    } else {
+      const card = document.createElement('div');
+      card.className = 'style-card';
+      card.dataset.styleId = sid;
+      card.dataset.styledText = style.styled;
+      card.style.animationDelay = `${idx * 0.04}s`;
+
+      const isFav = favorites.some(f => f === style.styled);
+      card.innerHTML = `
+        <div class="card-label">${style.name}</div>
+        <div class="card-text" style="font-size:${cardFontSize}px">${escapeHtml(style.styled)}</div>
+        <div class="card-actions">
+          <button class="card-action-btn copy-btn" aria-label="Copy text"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg></button>
+          <button class="card-action-btn fav-btn ${isFav ? 'fav-active' : ''}" aria-label="Toggle favorite"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg></button>
+        </div>
+      `;
+
+      card.addEventListener('click', (e) => { if (e.target.closest('.card-action-btn')) return; copyToClipboard(style.styled); });
+      card.querySelector('.copy-btn').addEventListener('click', (e) => { e.stopPropagation(); copyToClipboard(style.styled); });
+      card.querySelector('.fav-btn').addEventListener('click', (e) => { e.stopPropagation(); toggleFavorite(style.styled); });
+
+      grid.appendChild(card);
+    }
+  });
+}
+
+function escapeHtml(t) { const d = document.createElement('div'); d.textContent = t; return d.innerHTML; }
+function copyToClipboard(text) { navigator.clipboard.writeText(text).then(() => showToast('Copied! ✨')).catch(() => { const ta = document.createElement('textarea'); ta.value = text; ta.style.cssText = 'position:fixed;opacity:0;'; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); ta.remove(); showToast('Copied! ✨'); }); }
+function showToast(msg) { const t = document.getElementById('toast'); t.textContent = msg; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 1800); }
+
+function toggleFavorite(text) {
+  const idx = favorites.indexOf(text);
+  if (idx > -1) { favorites.splice(idx, 1); showToast('Removed from favorites'); }
+  else { favorites.push(text); showToast('Added to favorites 💜'); }
+  updateFavBadge();
+  if (currentPage === 'favs') renderFavorites();
+  renderStyles();
+}
+
+function updateFavBadge() {
+  const badge = document.getElementById('favBadge');
+  if (favorites.length > 0) { badge.style.display = 'flex'; badge.textContent = favorites.length; }
+  else { badge.style.display = 'none'; }
+}
+
+function renderFavorites() {
+  const grid = document.getElementById('favsGrid');
+  const empty = document.getElementById('emptyFavs');
+
+  if (!favorites.length) { grid.innerHTML = ''; empty.style.display = 'flex'; return; }
+  empty.style.display = 'none';
+  grid.innerHTML = '';
+
+  favorites.forEach((text, idx) => {
+    const card = document.createElement('div');
+    card.className = 'style-card';
+    card.style.animationDelay = `${idx * 0.04}s`;
+    card.innerHTML = `
+      <div class="card-label">Favorite</div>
+      <div class="card-text" style="font-size:${cardFontSize}px">${escapeHtml(text)}</div>
+      <div class="card-actions">
+        <button class="card-action-btn copy-btn" aria-label="Copy"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg></button>
+        <button class="card-action-btn fav-btn fav-active" aria-label="Remove favorite"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 4 21 4 23 6 23 20a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V6z"></polyline></svg></button>
+      </div>
+    `;
+    card.addEventListener('click', (e) => { if (e.target.closest('.card-action-btn')) return; copyToClipboard(text); });
+    card.querySelector('.copy-btn').addEventListener('click', (e) => { e.stopPropagation(); copyToClipboard(text); });
+    card.querySelector('.fav-btn').addEventListener('click', (e) => { e.stopPropagation(); toggleFavorite(text); });
+    grid.appendChild(card);
+  });
+}
+
+function switchPage(page) {
+  currentPage = page;
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+
+  if (page === 'home') document.getElementById('homePage').classList.add('active');
+  else if (page === 'favs') { document.getElementById('favsPage').classList.add('active'); renderFavorites(); }
+  else if (page === 'settings') document.getElementById('settingsPage').classList.add('active');
+
+  document.querySelector(`.nav-item[data-page="${page}"]`).classList.add('active');
+}
+
+document.querySelectorAll('.nav-item').forEach(btn => { btn.addEventListener('click', () => switchPage(btn.dataset.page)); });
+
+function setTheme(dark) {
+  isDark = dark;
+  document.body.classList.toggle('light-mode', !dark);
+  const toggle = document.getElementById('darkModeToggle');
+  toggle.classList.toggle('on', dark);
+  const themeIcon = document.querySelector('#themeToggle svg');
+  if (themeIcon) {
+    const newIcon = dark ? '<circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>' : '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
+    themeIcon.innerHTML = newIcon;
+  }
+}
+
+document.getElementById('themeToggle').addEventListener('click', () => setTheme(!isDark));
+document.getElementById('darkModeToggle').addEventListener('click', () => setTheme(!isDark));
+
+document.getElementById('fsPlus').addEventListener('click', () => { if (cardFontSize < 28) { cardFontSize++; document.getElementById('fsValue').textContent = cardFontSize; document.querySelectorAll('.card-text').forEach(el => el.style.fontSize = `${cardFontSize}px`); } });
+document.getElementById('fsMinus').addEventListener('click', () => { if (cardFontSize > 12) { cardFontSize--; document.getElementById('fsValue').textContent = cardFontSize; document.querySelectorAll('.card-text').forEach(el => el.style.fontSize = `${cardFontSize}px`); } });
+
+const nameInput = document.getElementById('nameInput');
+const generateBtnEl = document.getElementById('generateBtn');
+
+function doGenerate() { currentName = nameInput.value.trim(); if (!currentName) return; generatedStyles = generateStyles(currentName); activeCat = 'all'; renderCategories(); renderStyles(); }
+
+generateBtnEl.addEventListener('click', doGenerate);
+nameInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') { e.preventDefault(); doGenerate(); } });
+
+let typeTimer;
+nameInput.addEventListener('input', () => { clearTimeout(typeTimer); typeTimer = setTimeout(() => { if (nameInput.value.trim()) doGenerate(); else { generatedStyles = []; renderStyles(); } }, 300); });
+
+renderCategories();
+  </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9dcc5303c04a9897',t:'MTc3MzU4NjE2MS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+  </html>
